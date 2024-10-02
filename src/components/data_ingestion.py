@@ -48,3 +48,6 @@ class DataIngestion:
             logging.info('Exception occured ata Data Ingestion Stage')
             raise CustomException(e,sys)
 
+
+
+
