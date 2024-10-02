@@ -123,3 +123,10 @@ raise CustomException(e, sys): Raises a CustomException, passing the original ex
 Summary
 The code ingests a CSV file, splits it into training and test sets, and saves them in specified directories. Logging is used to track progress, and custom error handling is in place to manage any issues that arise during the process.
 ```
+
+
+@app.route('/predict',methods=['GET','POST'])
+
+def predict_datapoint():
+    if request.method=='GET':
+        return render_template('form.html')
