@@ -47,12 +47,4 @@ class DataIngestion:
         except Exception as e:
             logging.info('Exception occured ata Data Ingestion Stage')
             raise CustomException(e,sys)
-        
 
-## Data ing run
-
-if __name__=='__main__':
-    obj=DataIngestion()
-    train_data_path,test_data_path=obj.initiate_data_ingestion()
-    data_transformation = DataTransformation()
-    train_arr,test_arr,_=data_transformation.initaite_data_transformation(train_data_path,test_data_path)
