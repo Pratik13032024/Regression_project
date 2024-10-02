@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diamond Predictor Form</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -18,62 +22,96 @@
 
         .container {
             background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            width: 400px;
             max-width: 90%;
+            animation: fadeIn 1s ease-in-out;
         }
 
         h1 {
             text-align: center;
-            color: #333;
+            margin-bottom: 20px;
+            color: #3498db;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             color: #555;
+            font-weight: bold;
         }
 
         input[type="text"],
         select {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            transition: border-color 0.3s;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            outline: none;
         }
 
         input[type="text"]:focus,
         select:focus {
             border-color: #3498db;
-            outline: none;
+        }
+
+        input[type="text"]::placeholder {
+            color: #b0b0b0;
         }
 
         input[type="submit"] {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             background-color: #3498db;
             color: white;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease;
         }
 
         input[type="submit"]:hover {
             background-color: #2980b9;
         }
 
+        .form-group select {
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10"><path fill="none" stroke="%23999" stroke-width="2" d="M1 1l6 6 6-6"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px top 50%;
+            background-size: 12px 12px;
+            padding-right: 40px;
+        }
+
         .clear {
             clear: both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 500px) {
+            .container {
+                width: 90%;
+            }
         }
     </style>
 </head>
@@ -83,37 +121,38 @@
         <form action="{{ url_for('predict_datapoint') }}" method="POST">
             <div class="form-group">
                 <label for="carat">Carat:</label>
-                <input type="text" id="carat" name="carat" placeholder="Enter carat value (float)">
+                <input type="text" id="carat" name="carat" placeholder="Enter carat value (float)" required>
             </div>
 
             <div class="form-group">
                 <label for="depth">Depth:</label>
-                <input type="text" id="depth" name="depth" placeholder="Enter depth value (float)">
+                <input type="text" id="depth" name="depth" placeholder="Enter depth value (float)" required>
             </div>
 
             <div class="form-group">  
                 <label for="table">Table:</label>
-                <input type="text" id="table" name="table" placeholder="Enter table value (float)">
+                <input type="text" id="table" name="table" placeholder="Enter table value (float)" required>
             </div>
             
             <div class="form-group">
                 <label for="x">x:</label>
-                <input type="text" id="x" name="x" placeholder="Enter x value (float)">
+                <input type="text" id="x" name="x" placeholder="Enter x value (float)" required>
             </div>
           
             <div class="form-group">
                 <label for="y">y:</label>
-                <input type="text" id="y" name="y" placeholder="Enter y value (float)">
+                <input type="text" id="y" name="y" placeholder="Enter y value (float)" required>
             </div>
           
             <div class="form-group">
                 <label for="z">z:</label>
-                <input type="text" id="z" name="z" placeholder="Enter z value (float)">
+                <input type="text" id="z" name="z" placeholder="Enter z value (float)" required>
             </div>         
 
             <div class="form-group">
                 <label for="cut">Cut:</label>
-                <select id="cut" name="cut">
+                <select id="cut" name="cut" required>
+                    <option value="" disabled selected>Select Cut Quality</option>
                     <option value="Fair">Fair</option>
                     <option value="Good">Good</option>
                     <option value="Very Good">Very Good</option>
@@ -124,7 +163,8 @@
             
             <div class="form-group">
                 <label for="color">Color:</label>
-                <select id="color" name="color">
+                <select id="color" name="color" required>
+                    <option value="" disabled selected>Select Color Grade</option>
                     <option value="D">D</option>
                     <option value="E">E</option>
                     <option value="F">F</option>
@@ -137,7 +177,8 @@
 
             <div class="form-group">
                 <label for="clarity">Clarity:</label>
-                <select id="clarity" name="clarity">
+                <select id="clarity" name="clarity" required>
+                    <option value="" disabled selected>Select Clarity</option>
                     <option value="I1">I1</option>
                     <option value="SI2">SI2</option>
                     <option value="SI1">SI1</option>
